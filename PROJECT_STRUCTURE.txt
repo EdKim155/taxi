@@ -1,0 +1,62 @@
+taxi-waybill-bot/
+│
+├── 📄 Core Application Files
+│   ├── main.py                    # Application entry point
+│   ├── config.py                  # Configuration management
+│   └── requirements.txt           # Python dependencies
+│
+├── 🤖 Bot Package
+│   └── bot/
+│       ├── __init__.py
+│       │
+│       ├── handlers/              # Telegram command handlers
+│       │   ├── __init__.py
+│       │   ├── auth_handler.py    # Authorization logic
+│       │   └── main_handler.py    # Main bot logic
+│       │
+│       ├── services/              # Business logic
+│       │   ├── __init__.py
+│       │   ├── sheets_service.py      # Google Sheets integration
+│       │   ├── pdf_service.py         # PDF generation
+│       │   ├── transaction_service.py # Balance management
+│       │   └── waybill_service.py     # Waybill logic
+│       │
+│       ├── templates/             # HTML templates
+│       │   └── waybill.html       # Waybill PDF template
+│       │
+│       └── static/                # Static files
+│           ├── css/
+│           └── fonts/
+│
+├── 📚 Documentation
+│   ├── README.md                  # Main documentation
+│   ├── QUICKSTART.md              # Quick start guide
+│   ├── DEPLOYMENT.md              # Deployment instructions
+│   ├── FAQ.md                     # Frequently asked questions
+│   ├── CONTRIBUTING.md            # Contributing guidelines
+│   ├── CHANGELOG.md               # Version history
+│   ├── GOOGLE_SHEETS_TEMPLATE.md  # Sheets structure guide
+│   ├── WAYBILL_TEMPLATE_EXAMPLE.md # Template documentation
+│   └── BOT_INTERFACE.md           # Bot UI documentation
+│
+├── 🐳 Deployment
+│   ├── Dockerfile                 # Docker image
+│   ├── docker-compose.yml         # Docker Compose config
+│   ├── taxi-waybill-bot.service   # Systemd service file
+│   └── setup.sh                   # Setup script
+│
+├── ⚙️ Configuration
+│   ├── .env.example               # Environment variables template
+│   ├── .gitignore                 # Git ignore rules
+│   └── LICENSE                    # MIT License
+│
+├── 🧪 Testing
+│   └── tests_example.py           # Test examples
+│
+├── 📁 Generated Files (runtime)
+│   ├── generated_waybills/        # Generated PDF files
+│   ├── bot.log                    # Application logs
+│   └── service_account.json       # Google service account key (not in git)
+│
+└── 🔧 Virtual Environment (local)
+    └── venv/                      # Python virtual environment (not in git)

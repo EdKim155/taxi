@@ -1,0 +1,22 @@
+[Unit]
+Description=Taxi Waybill Telegram Bot
+After=network.target
+
+[Service]
+Type=simple
+User=taxi
+Group=taxi
+WorkingDirectory=/opt/taxi-waybill-bot
+Environment="PATH=/opt/taxi-waybill-bot/venv/bin"
+ExecStart=/opt/taxi-waybill-bot/venv/bin/python main.py
+Restart=always
+RestartSec=10
+StandardOutput=append:/var/log/taxi-waybill-bot/output.log
+StandardError=append:/var/log/taxi-waybill-bot/error.log
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
