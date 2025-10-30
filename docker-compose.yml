@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  taxi-waybill-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: taxi-waybill-bot
+    restart: unless-stopped
+    volumes:
+      - ./generated_waybills:/app/generated_waybills
+      - ./logs:/app/logs
+      - ./bot.log:/app/bot.log
+      - ./service_account.json:/app/service_account.json:ro
+    env_file:
+      - .env
+    environment:
+      - TZ=Europe/Moscow
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - taxi-network
+
+networks:
+  taxi-network:
+    driver: bridge
