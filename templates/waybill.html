@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Путевой лист {{ wb_number }}</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+        body {
+            font-family: 'DejaVu Sans', 'Arial', sans-serif;
+            color: #1f2933;
+            font-size: 12pt;
+            line-height: 1.4;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .header .title {
+            font-size: 20pt;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #ffffff;
+            font-size: 11pt;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .card {
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            padding: 16px;
+            background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(249,250,251,1) 100%);
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+        }
+        .card h3 {
+            margin: 0 0 12px;
+            font-size: 14pt;
+            color: #1f2937;
+            border-bottom: 2px solid rgba(37, 99, 235, 0.2);
+            padding-bottom: 6px;
+        }
+        .details {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .details th,
+        .details td {
+            padding: 6px 8px;
+            border-bottom: 1px dashed #cbd5f5;
+            text-align: left;
+        }
+        .details th {
+            width: 45%;
+            color: #4b5563;
+            font-weight: normal;
+        }
+        .footer {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+        .footer .block {
+            border-top: 2px solid #3b82f6;
+            padding-top: 12px;
+            font-size: 11pt;
+            min-height: 80px;
+        }
+        .footer .label {
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #1f2937;
+            margin-bottom: 6px;
+        }
+        .signature-line {
+            margin-top: 30px;
+            border-top: 1px solid #9ca3af;
+            padding-top: 8px;
+        }
+        .text-muted {
+            color: #6b7280;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <div class="badge">Путевой лист</div>
+            <div class="title">№ {{ wb_number }}</div>
+            <div class="text-muted">Дата оформления: {{ dt_print|datetime }}</div>
+        </div>
+        <div style="text-align: right;">
+            <strong>{{ org_name }}</strong><br>
+            Тел.: {{ driver_phone }}<br>
+            Автомобиль: {{ car_plate }}
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Водитель</h3>
+            <table class="details">
+                <tr>
+                    <th>ФИО</th>
+                    <td>{{ driver_name }}</td>
+                </tr>
+                <tr>
+                    <th>Телефон</th>
+                    <td>{{ driver_phone }}</td>
+                </tr>
+                <tr>
+                    <th>Организация</th>
+                    <td>{{ org_name }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h3>Автомобиль</h3>
+            <table class="details">
+                <tr>
+                    <th>Марка и модель</th>
+                    <td>{{ car_model }}</td>
+                </tr>
+                <tr>
+                    <th>Гос. номер</th>
+                    <td>{{ car_plate }}</td>
+                </tr>
+                <tr>
+                    <th>VIN</th>
+                    <td>{{ vin or '—' }}</td>
+                </tr>
+                <tr>
+                    <th>Пробег при выезде</th>
+                    <td>{{ odo_effective|round(1) }} км</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Предрейсовый медосмотр</h3>
+            <table class="details">
+                <tr>
+                    <th>Медработник</th>
+                    <td>{{ med_worker }}</td>
+                </tr>
+                <tr>
+                    <th>Отметка времени</th>
+                    <td>{{ dt_print|datetime }}</td>
+                </tr>
+                <tr>
+                    <th>Разрешение</th>
+                    <td>Годен к рейсу</td>
+                </tr>
+            </table>
+        </div>
+        <div class="card">
+            <h3>Технический осмотр</h3>
+            <table class="details">
+                <tr>
+                    <th>Механик</th>
+                    <td>{{ mech_worker }}</td>
+                </tr>
+                <tr>
+                    <th>Отметка времени</th>
+                    <td>{{ dt_print|datetime }}</td>
+                </tr>
+                <tr>
+                    <th>Результат</th>
+                    <td>К эксплуатации допущен</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="block">
+            <div class="label">Медработник</div>
+            <div>{{ med_worker }}</div>
+            <div class="signature-line text-muted">Подпись</div>
+        </div>
+        <div class="block">
+            <div class="label">Механик</div>
+            <div>{{ mech_worker }}</div>
+            <div class="signature-line text-muted">Подпись</div>
+        </div>
+        <div class="block">
+            <div class="label">Водитель</div>
+            <div>{{ driver_name }}</div>
+            <div class="signature-line text-muted">Подпись</div>
+        </div>
+    </div>
+</body>
+</html>
